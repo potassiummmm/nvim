@@ -1,0 +1,10 @@
+{
+	"coc.preferences.extensionUpdateCheck":"never",
+	"suggest.noselect":true,
+	"suggest.enablePreselect": false,
+	"snippets.ultisnips.directories": [
+		"UltiSnips",
+		"$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
+  ],
+  "clangd.path": "/Users/algiz/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd"
+}
