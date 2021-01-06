@@ -157,6 +157,10 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'm
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
 
+" LaTex
+Plug 'lervag/vimtex'
+
+
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -268,3 +272,30 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+
+" ===
+" === wincent/terminus
+" ===
+let g:TerminusMouse=1
+
+
+" ===
+" === vimtex
+" ===
+let g:tex_flavor='latex'
+
+" 阅读器相关的配置 包含正反向查找功能 仅供参考
+let g:vimtex_view_general_viewer = 'SumatraPDF'
+let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+let g:vimtex_view_general_options
+\ = '-reuse-instance -forward-search @tex @line @pdf'
+\ . ' -inverse-search "' . exepath(v:progpath)
+\ . ' --servername ' . v:servername
+\ . ' --remote-send \"^<C-\^>^<C-n^>'
+\ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
+\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
+\ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
+
+set conceallevel=1
+let g:tex_conceal='abdmg'
