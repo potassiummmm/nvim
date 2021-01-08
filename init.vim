@@ -16,22 +16,14 @@ set splitbelow
 set scrolloff=10
 set showcmd
 
-"let g:terminal_color_0  = '#000000'
-"let g:terminal_color_1  = '#FF5555'
-"let g:terminal_color_2  = '#50FA7B'
-"let g:terminal_color_3  = '#F1FA8C'
-"let g:terminal_color_4  = '#BD93F9'
-"let g:terminal_color_5  = '#FF79C6'
-"let g:terminal_color_6  = '#8BE9FD'
-"let g:terminal_color_7  = '#BFBFBF'
-"let g:terminal_color_8  = '#4D4D4D'
-"let g:terminal_color_9  = '#FF6E67'
-"let g:terminal_color_10 = '#5AF78E'
-"let g:terminal_color_11 = '#F4F99D'
-"let g:terminal_color_12 = '#CAA9FA'
-"let g:terminal_color_13 = '#FF92D0'
-"let g:terminal_color_14 = '#9AEDFE'
 
+nnoremap exp :CocCommand explorer<CR>
+nnoremap runpy :CocCommand python.execInTerminal<CR>
+inoremap jk <ESC> 
+noremap Q :q<CR>
+noremap S :w<CR>
+
+" coc.nvim配置
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
 	\ 'coc-python',
@@ -48,6 +40,7 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -77,9 +70,32 @@ nmap <silent> gr <Plug>(coc-references)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" coc-snippets configuration
+imap <C-l> <Plug>(coc-snippets-expand)
 
-nnoremap exp :CocCommand explorer<CR>
-nnoremap runpy :CocCommand python.execInTerminal<CR>
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+let g:coc_snippet_next = '<tab>'
 
 " press f10 to show hlgroup
 function! SynGroup()
@@ -123,7 +139,6 @@ endfunc
 call plug#begin('~/.config/nvim/plugged')
 
 
-" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Plug 'mg979/vim-visual-multi'
