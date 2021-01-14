@@ -161,6 +161,7 @@ Plug 'honza/vim-snippets'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
 
 " Plug 'theniceboy/eleline.vim'
 " Plug 'ojroques/vim-scrollstatus'
@@ -197,6 +198,10 @@ Plug 'nvim-treesitter/playground'
 
 call plug#end()
 
+
+syntax enable
+set background=light
+colorscheme solarized
 
 " ===
 " === eleline.vim
