@@ -28,11 +28,32 @@ set showcmd
 set ignorecase
 set smartcase
 
+exec "nohlsearch"
+
+let mapleader=" "
+noremap ; :
 nnoremap exp :CocCommand explorer<CR>
 nnoremap runpy :CocCommand python.execInTerminal<CR>
-inoremap jk <ESC> 
 noremap Q :q<CR>
 noremap S :w<CR>
+noremap <LEADER>w <C-w>w
+noremap <LEADER>k <C-w>k
+noremap <LEADER>j <C-w>j
+noremap <LEADER>h <C-w>h
+noremap <LEADER>l <C-w>l
+noremap qf <C-w>o
+noremap H 5h
+noremap J 5j
+noremap K 5k
+noremap L 5l
+
+inoremap jk <ESC> 
+
+map <Up> <NOP>
+map <Down> <NOP>
+map <Left> <NOP>
+map <Right> <NOP>
+map s <nop>
 
 " coc.nvim配置
 let g:coc_global_extensions = [
