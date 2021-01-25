@@ -25,7 +25,8 @@ set splitright
 set splitbelow
 set scrolloff=10
 set showcmd
-
+set ignorecase
+set smartcase
 
 nnoremap exp :CocCommand explorer<CR>
 nnoremap runpy :CocCommand python.execInTerminal<CR>
