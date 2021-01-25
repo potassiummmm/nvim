@@ -36,24 +36,37 @@ nnoremap exp :CocCommand explorer<CR>
 nnoremap runpy :CocCommand python.execInTerminal<CR>
 noremap Q :q<CR>
 noremap S :w<CR>
+
+" 分屏键位映射
+noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sj :set splitbelow<CR>:split<CR>
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
 noremap <LEADER>w <C-w>w
 noremap <LEADER>k <C-w>k
 noremap <LEADER>j <C-w>j
 noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
+noremap <up> :res +5<CR>
+noremap <down> :res -5<CR>
+noremap <left> :vertical resize-5<CR>
+noremap <right> :vertical resize+5<CR>
+
 noremap qf <C-w>o
 noremap H 5h
 noremap J 5j
 noremap K 5k
 noremap L 5l
 
+" 空格/打开终端
+noremap <LEADER>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
+
+" Press space twice to jump to the next '<++>' and edit it
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+
+
 inoremap jk <ESC> 
 
-map <Up> <NOP>
-map <Down> <NOP>
-map <Left> <NOP>
-map <Right> <NOP>
-map s <nop>
 
 " coc.nvim配置
 let g:coc_global_extensions = [
