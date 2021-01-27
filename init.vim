@@ -178,6 +178,10 @@ func! CompileRunGcc()
 		:term python3 %
 	elseif &filetype == 'markdown'
 		exec "InstantMarkdownPreview"
+	elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term go run .
 	endif
 endfunc
 
