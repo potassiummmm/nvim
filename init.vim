@@ -47,10 +47,12 @@ noremap <LEADER>k <C-w>k
 noremap <LEADER>j <C-w>j
 noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
+noremap <up> :res -5<CR>
+noremap <down> :res +5<CR>
 noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
+
+noremap <LEADER>v :LeaderfFunction!<CR>
 
 noremap qf <C-w>o
 noremap H 5h
@@ -197,6 +199,7 @@ Plug 'honza/vim-snippets'
 
 " Plug 'mg979/vim-visual-multi'
 
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -373,3 +376,20 @@ let g:vimtex_view_general_options
 
 set conceallevel=1
 let g:tex_conceal='abdmg'
+
+" ===
+" === leaderf
+" ===
+
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
+
+let g:Lf_NormalMap = {
+	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+	\ }
