@@ -218,6 +218,8 @@ Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to 
 
 Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
 
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-cpp --enable-python --enable-go'}
+
 Plug 'wincent/terminus'
 
 Plug 'ajmwagar/vim-deus'
@@ -393,3 +395,8 @@ let g:Lf_NormalMap = {
 	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
+
+
+" ===
+" === vimspector
+" ===
