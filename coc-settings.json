@@ -6,5 +6,12 @@
 		"UltiSnips",
 		"$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
   ],
-  "clangd.path": "/Users/algiz/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd"
+    "clangd.path": "/Users/algiz/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+	"languageserver": {
+		"golang":{
+			"command": "/Users/algiz/Documents/code/GoPath/bin/gopls",
+			"rootPatterns": ["go.mod"],
+			"filetypes": ["go"]
+		}
+	}
 }
