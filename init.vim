@@ -69,6 +69,12 @@ noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 inoremap jk <ESC> 
 
+" LeetCode配置
+nnoremap <leader>ll :LeetCodeList<cr>
+nnoremap <leader>lt :LeetCodeTest<cr>
+nnoremap <leader>ls :LeetCodeSubmit<cr>
+nnoremap <leader>li :LeetCodeSignIn<cr>
+
 
 " coc.nvim配置
 let g:coc_global_extensions = [
@@ -194,6 +200,7 @@ endfunc
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'ianding1/leetcode.vim'
 
 Plug 'honza/vim-snippets'
 
@@ -232,6 +239,15 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
+
+
+" Git
+Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
+Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
+"Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
+Plug 'cohama/agit.vim'
+Plug 'kdheepak/lazygit.nvim'
 
 " Autoformat
 Plug 'google/vim-maktaba'
@@ -467,4 +483,57 @@ augroup autoformat_settings
   " autocmd FileType rust AutoFormatBuffer rustfmt
   " autocmd FileType vue AutoFormatBuffer prettier
 augroup END
+
+
+" ===
+" === leetcode
+" ===
+let g:leetcode_china = 1
+let g:leetcode_solution_filetype = 'cpp'
+let g:leetcode_browser = 'chrome'
+let g:leetcode_hide_paid_only = 1
+
+
+" ==
+" == GitGutter
+" ==
+" let g:gitgutter_signs = 0
+let g:gitgutter_sign_allow_clobber = 0
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_preview_win_floating = 1
+let g:gitgutter_sign_added = '▎'
+let g:gitgutter_sign_modified = '░'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_modified_removed = '▒'
+" autocmd BufWritePost * GitGutter
+nnoremap <LEADER>gf :GitGutterFold<CR>
+nnoremap H :GitGutterPreviewHunk<CR>
+nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
+nnoremap <LEADER>g= :GitGutterNextHunk<CR>
+
+
+" ===
+" === fzf-gitignore
+" ===
+noremap <LEADER>gi :FzfGitignore<CR>
+
+
+" ===
+" === Agit
+" ===
+nnoremap <LEADER>gl :Agit<CR>
+let g:agit_no_default_mappings = 1
+
+
+" ===
+" === lazygit.nvim
+" ===
+noremap <c-g> :LazyGit<CR>
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 1.0 " scaling factor for floating window
+let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
+
 
