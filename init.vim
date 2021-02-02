@@ -80,7 +80,6 @@ nnoremap <leader>li :LeetCodeSignIn<cr>
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
 	\ 'coc-python',
-	\ 'coc-pyright',
 	\ 'coc-vimlsp', 
 	\ 'coc-explorer',
 	\ 'coc-json',
@@ -207,6 +206,8 @@ Plug 'honza/vim-snippets'
 " Plug 'mg979/vim-visual-multi'
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+Plug 'airblade/vim-rooter'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -536,4 +537,9 @@ let g:lazygit_floating_window_scaling_factor = 1.0 " scaling factor for floating
 let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
 let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 
+" ===
+" === vim-rooter
+" ===
+let g:rooter_patterns = ['__vim_project_root', '.git/']
+let g:rooter_silent_chdir = 1
 
