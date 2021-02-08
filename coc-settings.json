@@ -13,5 +13,8 @@
 			"rootPatterns": ["go.mod"],
 			"filetypes": ["go"]
 		}
-	}
+	},
+	"leetcode.language": "cpp",
+	"leetcode.filePath": "/Users/algiz/Desktop/Projects/LeetCodeProblems/",
+	"leetcode.enabled": true
 }

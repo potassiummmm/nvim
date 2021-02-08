@@ -37,6 +37,12 @@ nnoremap runpy :CocCommand python.execInTerminal<CR>
 noremap Q :q<CR>
 noremap S :w<CR>
 
+
+" Tab management
+noremap tu :tabe<CR>
+noremap th :-tabnext<CR>
+noremap tl :+tabnext<CR>
+
 " 分屏键位映射
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sj :set splitbelow<CR>:split<CR>
@@ -68,12 +74,10 @@ noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 
 inoremap jk <ESC> 
+inoremap <C-a> <ESC>A
 
-" LeetCode配置
-nnoremap <leader>ll :LeetCodeList<cr>
-nnoremap <leader>lt :LeetCodeTest<cr>
-nnoremap <leader>ls :LeetCodeSubmit<cr>
-nnoremap <leader>li :LeetCodeSignIn<cr>
+nnoremap < <<
+nnoremap > >>
 
 
 " coc.nvim配置
@@ -82,6 +86,8 @@ let g:coc_global_extensions = [
 	\ 'coc-python',
 	\ 'coc-vimlsp', 
 	\ 'coc-explorer',
+    \ 'coc-tslint-plugin',
+	\ 'coc-tsserver',
 	\ 'coc-json',
 	\ 'coc-clangd',
 	\ 'coc-yank']
@@ -179,6 +185,8 @@ func! CompileRunGcc()
 		exec "!time java %<"
     elseif &filetype == 'sh'
 		:!time zsh %
+	elseif &filetype == 'javascript'
+		exec '!node %'
 	elseif &filetype == 'python'
 		set splitbelow
 		:sp
@@ -199,7 +207,6 @@ endfunc
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'ianding1/leetcode.vim'
 
 Plug 'honza/vim-snippets'
 
@@ -263,6 +270,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'potassiummmm/coc-leetcode', {'do': 'yarn install --frozen-lockfile && yarn build'}
 
 call plug#end()
 
@@ -486,14 +494,6 @@ augroup autoformat_settings
 augroup END
 
 
-" ===
-" === leetcode
-" ===
-let g:leetcode_china = 1
-let g:leetcode_solution_filetype = 'cpp'
-let g:leetcode_browser = 'chrome'
-let g:leetcode_hide_paid_only = 1
-
 
 " ==
 " == GitGutter
@@ -510,7 +510,7 @@ let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_sign_modified_removed = '▒'
 " autocmd BufWritePost * GitGutter
 nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap H :GitGutterPreviewHunk<CR>
+" nnoremap H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
@@ -543,3 +543,11 @@ let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 let g:rooter_patterns = ['__vim_project_root', '.git/']
 let g:rooter_silent_chdir = 1
 
+
+" ===
+" === coc-leetcode
+" ===
+noremap <LEADER>ll :CocList LeetcodeProblems<CR>
+noremap <LEADER>lr :CocCommand leetcode.run<CR>
+noremap <LEADER>ls :CocCommand leetcode.submit<CR>
+noremap <LEADER>lc :CocCommand leetcode.comments<CR>
