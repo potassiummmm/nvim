@@ -43,7 +43,7 @@ noremap tu :tabe<CR>
 noremap th :-tabnext<CR>
 noremap tl :+tabnext<CR>
 
-" 分屏键位映射
+" Window management
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sj :set splitbelow<CR>:split<CR>
 noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
@@ -58,32 +58,38 @@ noremap <down> :res +5<CR>
 noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
+" Function preview
 noremap <LEADER>v :LeaderfFunction!<CR>
 
+" Faster movement
 noremap qf <C-w>o
 noremap H 5h
 noremap J 5j
 noremap K 5k
 noremap L 5l
 
-" 空格/打开终端
+" Press space+/ to open terminal
 noremap <LEADER>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
+" ESC remapped
+inoremap jk <ESC>l
 
-inoremap jk <ESC> 
+" Cusor movement in insert mode
 inoremap <C-a> <ESC>A
 
+" Quicker indent
 nnoremap < <<
 nnoremap > >>
 
 
-" coc.nvim配置
+" coc.nvim extensions
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
 	\ 'coc-python',
+	\ 'coc-pyright',
 	\ 'coc-vimlsp', 
 	\ 'coc-explorer',
     \ 'coc-tslint-plugin',
@@ -92,7 +98,7 @@ let g:coc_global_extensions = [
 	\ 'coc-clangd',
 	\ 'coc-yank']
 
-" tab 选中第一个补全
+" press tab to choose the first snippet
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
