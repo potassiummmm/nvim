@@ -90,6 +90,7 @@ let g:coc_global_extensions = [
 	\ 'coc-snippets',  
 	\ 'coc-python',
 	\ 'coc-pyright',
+	\ 'coc-omnisharp',
 	\ 'coc-vimlsp', 
 	\ 'coc-explorer',
     \ 'coc-tslint-plugin',
@@ -199,6 +200,8 @@ func! CompileRunGcc()
 		:term python3 %
 	elseif &filetype == 'markdown'
 		exec "InstantMarkdownPreview"
+	elseif &filetype == 'cs'
+		:!dotnet run
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
@@ -491,7 +494,7 @@ augroup autoformat_settings
   " autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   " autocmd FileType gn AutoFormatBuffer gn
-  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   " autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
