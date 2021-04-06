@@ -1,5 +1,4 @@
-" ===
-" === Auto load for first time uses
+" === === Auto load for first time uses
 " ===
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -27,13 +26,15 @@ set scrolloff=10
 set showcmd
 set ignorecase
 set smartcase
+set clipboard=unnamedplus
+set autochdir
+set hidden
 
 exec "nohlsearch"
 
 let mapleader=" "
 noremap ; :
 nnoremap exp :CocCommand explorer<CR>
-nnoremap runpy :CocCommand python.execInTerminal<CR>
 noremap Q :q<CR>
 noremap S :w<CR>
 
@@ -59,7 +60,7 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 " Function preview
-noremap <LEADER>v :LeaderfFunction!<CR>
+noremap <LEADER>g :LeaderfFunction!<CR>
 
 " Faster movement
 noremap qf <C-w>o
@@ -88,7 +89,6 @@ nnoremap > >>
 " coc.nvim extensions
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
-	\ 'coc-python',
 	\ 'coc-pyright',
 	\ 'coc-omnisharp',
 	\ 'coc-vimlsp', 
@@ -99,7 +99,7 @@ let g:coc_global_extensions = [
 	\ 'coc-clangd',
 	\ 'coc-yank']
 
-" press tab to choose the first snippet
+" Press tab to choose the first snippet
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -112,11 +112,11 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" control + space to trigger completion
+" Use control + space to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
+" Format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -134,6 +134,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>rn <Plug>(coc-rename)
 
 " coc-snippets configuration
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -223,6 +224,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
+Plug 'liuchengxu/vista.vim'
+
 Plug 'airblade/vim-rooter'
 
 Plug 'vim-airline/vim-airline'
@@ -257,6 +260,8 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'm
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
 
+" Comment a line
+Plug 'tomtom/tcomment_vim' 
 
 " Git
 Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
@@ -273,6 +278,7 @@ Plug 'google/vim-glaive'
 
 " LaTex
 Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -345,7 +351,8 @@ let g:instant_markdown_autostart = 0
 " let g:instant_markdown_open_to_the_world = 1
 " let g:instant_markdown_allow_unsafe_content = 1
 " let g:instant_markdown_allow_external_content = 0
-" let g:instant_markdown_mathjax = 1
+let g:instant_markdown_mathjax = 1
+let g:instant_markdown_mermaid = 1
 let g:instant_markdown_autoscroll = 1
 
 
@@ -404,21 +411,11 @@ let g:TerminusMouse=1
 " === vimtex
 " ===
 let g:tex_flavor='latex'
-
+autocmd Filetype tex setl updatetime=5
 " 阅读器相关的配置 包含正反向查找功能 仅供参考
-let g:vimtex_view_general_viewer = 'SumatraPDF'
-let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-let g:vimtex_view_general_options
-\ = '-reuse-instance -forward-search @tex @line @pdf'
-\ . ' -inverse-search "' . exepath(v:progpath)
-\ . ' --servername ' . v:servername
-\ . ' --remote-send \"^<C-\^>^<C-n^>'
-\ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
-\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
-\ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
-
-set conceallevel=1
-let g:tex_conceal='abdmg'
+let g:livepreview_previewer = 'open -a Preview'
+let g:vimtex_view_method = 'skim' 
+let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 
 " ===
 " === leaderf
@@ -549,8 +546,8 @@ let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 " ===
 " === vim-rooter
 " ===
-let g:rooter_patterns = ['__vim_project_root', '.git/']
-let g:rooter_silent_chdir = 1
+let g:rooter_patterns = ['__vim_project_root', '.git/', '*.sln', 'Makefile']
+let g:rooter_silent_chdir = 0
 
 
 " ===
@@ -560,3 +557,25 @@ noremap <LEADER>ll :CocList LeetcodeProblems<CR>
 noremap <LEADER>lr :CocCommand leetcode.run<CR>
 noremap <LEADER>ls :CocCommand leetcode.submit<CR>
 noremap <LEADER>lc :CocCommand leetcode.comments<CR>
+
+
+" ===
+" === Vista.vim
+" ===
+noremap <LEADER>v :Vista!!<CR>
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+
+" ===
+" === tcomment_vim
+" ===
+let g:tcomment_textobject_inlinecomment = ''
+nmap <LEADER>cl gcc
+vmap <LEADER>cl gc
