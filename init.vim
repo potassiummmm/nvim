@@ -203,6 +203,9 @@ func! CompileRunGcc()
 		exec "InstantMarkdownPreview"
 	elseif &filetype == 'cs'
 		:!dotnet run
+	elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
@@ -216,7 +219,6 @@ endfunc
 " ===
 
 call plug#begin('~/.config/nvim/plugged')
-
 
 Plug 'honza/vim-snippets'
 
@@ -500,7 +502,6 @@ augroup autoformat_settings
 augroup END
 
 
-
 " ==
 " == GitGutter
 " ==
@@ -547,7 +548,7 @@ let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 " === vim-rooter
 " ===
 let g:rooter_patterns = ['__vim_project_root', '.git/', '*.sln', 'Makefile']
-let g:rooter_silent_chdir = 0
+let g:rooter_silent_chdir = 1
 
 
 " ===
@@ -577,5 +578,5 @@ let g:vista#renderer#icons = {
 " === tcomment_vim
 " ===
 let g:tcomment_textobject_inlinecomment = ''
-nmap <LEADER>cl gcc
-vmap <LEADER>cl gc
+nmap <LEADER>c gcc
+vmap <LEADER>c gc
