@@ -10,6 +10,7 @@ endif
 " ===
 " === Editor behavior
 " ===
+set guifont=DroidSansMono_Nerd_Font:h11
 set secure
 set number
 set relativenumber
@@ -54,6 +55,7 @@ noremap <LEADER>k <C-w>k
 noremap <LEADER>j <C-w>j
 noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
+noremap <LEADER>p <C-w>p
 noremap <up> :res -5<CR>
 noremap <down> :res +5<CR>
 noremap <left> :vertical resize-5<CR>
@@ -89,6 +91,10 @@ nnoremap > >>
 " coc.nvim extensions
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
+	\ 'coc-diagnostic',  
+	\ 'coc-gitignore',  
+	\ 'coc-syntax',  
+	\ 'coc-translator',
 	\ 'coc-pyright',
 	\ 'coc-omnisharp',
 	\ 'coc-vimlsp', 
@@ -154,6 +160,9 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
+" coc-translator
+nmap ts <Plug>(coc-translator-p)
+vmap ts <Plug>(coc-translator-pv)
 
 " ==
 " == Markdown Settings
@@ -241,7 +250,11 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" General Highlighter
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'RRethy/vim-illuminate'
 Plug 'luochen1990/rainbow'
+" Plug 'ryanoasis/vim-devicons'
 
 Plug 'tpope/vim-surround' 
 
@@ -285,8 +298,9 @@ Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/playground'
+
 Plug 'potassiummmm/coc-leetcode', {'do': 'yarn install --frozen-lockfile && yarn build'}
 
 call plug#end()
@@ -299,8 +313,7 @@ colorscheme solarized
 " ===
 " === eleline.vim
 " ===
-" let g:airline_powerline_fonts = 1
-
+let g:airline_powerline_fonts = 1
 " ===
 " === Ultisnips
 " ===
@@ -336,7 +349,11 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
-
+" ===
+" === vim-illuminate
+" ===
+let g:Illuminate_delay = 750
+hi illuminatedWord cterm=undercurl gui=undercurl
 
 " ===
 " === Rainbow
@@ -390,23 +407,25 @@ let g:vmt_cycle_list_item_markers = 1
 let g:vmt_fence_text = 'TOC'
 let g:vmt_fence_closing_text = '/TOC'
 
+
 " ===
 " === nvim-treesitter
 " ===
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",     -- one of "all", "language", or a list of languages
-  highlight = {
-    enable = true             -- false will disable the whole extension
-  },
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "all",     -- one of "all", "language", or a list of languages
+"   ignore_install={"haskell"},
+"   highlight = {
+"     enable = true             -- false will disable the whole extension
+"   },
+" }
+" EOF
 
 
 " ===
 " === wincent/terminus
 " ===
-let g:TerminusMouse=1
+let g:TerminusMouse=0
 
 
 " ===
@@ -420,9 +439,9 @@ let g:vimtex_view_method = 'skim'
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 
 " ===
-" === leaderf
+" === Leaderf
 " ===
-
+let g:Lf_ShowDevIcons = 1
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
@@ -564,6 +583,7 @@ noremap <LEADER>lc :CocCommand leetcode.comments<CR>
 " === Vista.vim
 " ===
 noremap <LEADER>v :Vista!!<CR>
+noremap <c-t> :silent! Vista finder coc<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'coc'
 let g:vista_fzf_preview = ['right:50%']
