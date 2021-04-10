@@ -10,8 +10,8 @@ endif
 " ===
 " === Editor behavior
 " ===
-set guifont=DroidSansMono_Nerd_Font:h11
-set secure
+
+" set termguicolors
 set number
 set relativenumber
 set cursorline
@@ -30,6 +30,8 @@ set smartcase
 set clipboard=unnamedplus
 set autochdir
 set hidden
+
+
 
 exec "nohlsearch"
 
@@ -241,7 +243,8 @@ Plug 'airblade/vim-rooter'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 " Plug 'theniceboy/eleline.vim'
 " Plug 'ojroques/vim-scrollstatus'
@@ -307,13 +310,19 @@ call plug#end()
 
 
 syntax enable
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 set background=light
 colorscheme solarized
+hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#afc5cb
+
 
 " ===
 " === eleline.vim
 " ===
 let g:airline_powerline_fonts = 1
+
+
 " ===
 " === Ultisnips
 " ===
@@ -358,7 +367,7 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 " ===
 " === Rainbow
 " ===
-let g:rainbow_active = 0
+let g:rainbow_active = 1
 
 
 
