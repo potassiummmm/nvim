@@ -6,6 +6,37 @@
         "UltiSnips",
         "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
     ],
+    "suggest.completionItemKindLabels": {
+        "class": "\uf0e8",
+        "color": "\ue22b",
+        "constant": "\uf8fe",
+        "default": "\uf29c",
+        "enum": "\uf435",
+        "enumMember": "\uf02b",
+        "event": "\ufacd",
+        "field": "\uf93d",
+        "file": "\uf723",
+        "folder": "\uf115",
+        "function": "\u0192",
+        "interface": "\uf417",
+        "keyword": "\uf1de",
+        "method": "\uf6a6",
+        "module": "\uf40d",
+        "operator": "\uf915",
+        "property": "\ue624",
+        "reference": "\ufa46",
+        "snippet": "\ue60b",
+        "struct": "\ufb44",
+        "text": "\ue612",
+        "typeParameter": "\uf728",
+        "unit": "\uf475",
+        "value": "\uf89f",
+        "variable": "\ue71b"
+    },
+    "diagnostic.errorSign": "\uf467",
+    "diagnostic.warningSign": "\uf071",
+    "diagnostic.infoSign": "\uf129",
+    "diagnostic.hintSign": "\uf864",
     "clangd.path": "/Users/algiz/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
     "languageserver": {
         "golang": {
@@ -14,10 +45,17 @@
             "filetypes": ["go"]
         }
     },
+    "codeLens.enable": true,
     "leetcode.language": "cpp",
     "leetcode.filePath": "/Users/algiz/Desktop/Projects/LeetCodeProblems/",
     "leetcode.enabled": true,
     "python.pythonPath": "/usr/local/bin/python3.9",
     "python.analysis.typeCheckingMode": "off",
-    "yank.enableCompletion": false
+    "yank.enableCompletion": false,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.icon.enableVimDevicons": true,
+    "explorer.keyMappings.global": {
+        "J": ["normal:5j"],
+        "K": ["normal:5k"]
+    }
 }
