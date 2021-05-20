@@ -1,4 +1,5 @@
-" === === Auto load for first time uses
+" === 
+" === Auto load for first time uses
 " ===
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -104,6 +105,7 @@ nnoremap > >>
 " coc.nvim extensions
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
+	\ 'coc-sh',
 	\ 'coc-diagnostic',  
 	\ 'coc-gitignore',  
 	\ 'coc-syntax',  
@@ -629,8 +631,8 @@ let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 " ===
 " === vim-rooter
 " ===
-let g:rooter_patterns = ['__vim_project_root', '.git/', '*.sln', 'Makefile']
-let g:rooter_silent_chdir = 1
+let g:rooter_patterns = ['=Src', '=src', '__vim_project_root', '.git/', '*.sln', 'Makefile']
+let g:rooter_silent_chdir = 0
 
 
 

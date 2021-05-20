@@ -37,7 +37,7 @@
     "diagnostic.warningSign": "\uf071",
     "diagnostic.infoSign": "\uf129",
     "diagnostic.hintSign": "\uf864",
-    "clangd.path": "/Users/algiz/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+    "clangd.path": "/usr/local/opt/llvm/bin/clangd",
     "languageserver": {
         "golang": {
             "command": "/Users/algiz/Documents/code/GoPath/bin/gopls",
