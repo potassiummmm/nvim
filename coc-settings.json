@@ -53,7 +53,7 @@
     "python.analysis.typeCheckingMode": "off",
     "yank.enableCompletion": false,
     "explorer.icon.enableNerdfont": true,
-    "explorer.icon.enableVimDevicons": true,
+    "explorer.icon.source": "vim-devicons",
     "explorer.keyMappings.global": {
         "J": ["normal:5j"],
         "K": ["normal:5k"]

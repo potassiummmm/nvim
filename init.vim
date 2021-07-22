@@ -118,6 +118,7 @@ let g:coc_global_extensions = [
 	\ 'coc-tsserver',
 	\ 'coc-json',
 	\ 'coc-clangd',
+	\ 'coc-markdownlint',
 	\ 'coc-yank']
 
 
@@ -330,8 +331,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 
 " Treesitter
-" Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 
 
 " LeetCode
@@ -679,7 +680,7 @@ vmap <LEADER>c gc
 " ===
 nnoremap <c-p> :Leaderf file<CR>
 noremap <LEADER>f :Files<CR>
-noremap <silent> <C-f> :Rg<CR>
+noremap <silent> <C-f> :Ag<CR>
 noremap <silent> <C-h> :History<CR>
 noremap <silent> <C-w> :Buffers<CR>
 
