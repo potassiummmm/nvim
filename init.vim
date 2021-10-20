@@ -36,7 +36,7 @@ exec "nohlsearch"
 
 let mapleader=" "
 noremap ; :
-nnoremap exp :CocCommand explorer<CR>
+nnoremap <LEADER>e :CocCommand explorer<CR>
 noremap Q :q<CR>
 noremap S :w<CR>
 
@@ -111,14 +111,12 @@ let g:coc_global_extensions = [
 	\ 'coc-syntax',  
 	\ 'coc-translator',
 	\ 'coc-pyright',
-	\ 'coc-omnisharp',
 	\ 'coc-vimlsp', 
 	\ 'coc-explorer',
     \ 'coc-tslint-plugin',
 	\ 'coc-tsserver',
 	\ 'coc-json',
 	\ 'coc-clangd',
-	\ 'coc-markdownlint',
 	\ 'coc-yank']
 
 
@@ -668,12 +666,6 @@ let g:tcomment_textobject_inlinecomment = ''
 nmap <LEADER>c gcc
 vmap <LEADER>c gc
 
-" ===
-" === vim-visual-multi
-" ===
-"
-
-
 
 " ===
 " === FZF
@@ -686,22 +678,15 @@ noremap <silent> <C-w> :Buffers<CR>
 
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
-" function! s:list_buffers()
-"   redir => list
-"   silent ls
-"   redir END
-"   return split(list, "\n")
-" endfunction
-"
-" function! s:delete_buffers(lines)
-"   execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-" endfunction
-
-" command! BD call fzf#run(fzf#wrap({
-"   \ 'source': s:list_buffers(),
-"   \ 'sink*': { lines -> s:delete_buffers(lines) },
-"   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-" \ }))
-
-
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+
+let g:startify_custom_header = startify#pad(split(system('figlet -w 100 NEOVIM'), '\n'))
+
+function! ReplaceChineseCharacter()
+	execute "%s/（/(/g"
+	execute "%s/）/)/g"
+	execute "%s/，/,/g"
+	execute "%s/。/./g"
+endfunction
+
+autocmd FileType markdown autocmd BufWritePre <buffer> silent! call ReplaceChineseCharacter()

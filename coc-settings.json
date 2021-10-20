@@ -2,6 +2,7 @@
     "coc.preferences.extensionUpdateCheck": "never",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
+    "snippets.priority": 200,
     "snippets.ultisnips.directories": [
         "UltiSnips",
         "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
@@ -38,6 +39,8 @@
     "diagnostic.infoSign": "\uf129",
     "diagnostic.hintSign": "\uf864",
     "clangd.path": "/usr/local/opt/llvm/bin/clangd",
+    "clangd.disableCompletion": false,
+    "clangd.disableSnippetCompletion": true,
     "languageserver": {
         "golang": {
             "command": "/Users/algiz/Documents/code/GoPath/bin/gopls",
@@ -52,10 +55,12 @@
     "python.pythonPath": "/usr/local/bin/python3.9",
     "python.analysis.typeCheckingMode": "off",
     "yank.enableCompletion": false,
-    "explorer.icon.enableNerdfont": true,
     "explorer.icon.source": "vim-devicons",
+    "explorer.file.showHiddenFiles": true,
+    "explorer.icon.enableNerdfont": true,
     "explorer.keyMappings.global": {
         "J": ["normal:5j"],
         "K": ["normal:5k"]
-    }
+    },
+    "explorer.floating.position": "left-center"
 }
