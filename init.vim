@@ -225,7 +225,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'markdown'
-		exec "InstantMarkdownPreview"
+		exec "MarkdownPreview"
 	elseif &filetype == 'cs'
 		:!dotnet run
 	elseif &filetype == 'tex'
@@ -294,10 +294,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 
 " Markdown
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 
 " Quick Comment
@@ -341,6 +342,7 @@ Plug 'potassiummmm/coc-leetcode', {'do': 'yarn install --frozen-lockfile && yarn
 Plug 'keith/swift.vim'
 Plug 'arzg/vim-swift'
 
+Plug 'laishulu/vim-macos-ime'
 
 call plug#end()
 
@@ -409,11 +411,11 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 " ===
 " === vim-instant-markdown
 " ===
-let g:instant_markdown_slow = 0
-let g:instant_markdown_autostart = 0
-let g:instant_markdown_mathjax = 1
-let g:instant_markdown_mermaid = 1
-let g:instant_markdown_autoscroll = 1
+" let g:instant_markdown_slow = 0
+" let g:instant_markdown_autostart = 0
+" let g:instant_markdown_mathjax = 1
+" let g:instant_markdown_mermaid = 1
+" let g:instant_markdown_autoscroll = 1
 " let g:instant_markdown_open_to_the_world = 1
 " let g:instant_markdown_allow_unsafe_content = 1
 " let g:instant_markdown_allow_external_content = 0
@@ -687,6 +689,9 @@ function! ReplaceChineseCharacter()
 	execute "%s/）/)/g"
 	execute "%s/，/,/g"
 	execute "%s/。/./g"
+	execute "%s/：/:/g"
+	execute "%s/“/\"/g"
+	execute "%s/”/\"/g"
 endfunction
 
 autocmd FileType markdown autocmd BufWritePre <buffer> silent! call ReplaceChineseCharacter()
