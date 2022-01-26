@@ -81,6 +81,7 @@ noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " ESC remapped
 inoremap jk <ESC>l
+inoremap JK <ESC>l
 
 " Cursor movement in insert mode
 inoremap <C-a> <ESC>A
@@ -107,7 +108,6 @@ let g:coc_global_extensions = [
 	\ 'coc-snippets',  
 	\ 'coc-sh',
 	\ 'coc-diagnostic',  
-	\ 'coc-gitignore',  
 	\ 'coc-syntax',  
 	\ 'coc-translator',
 	\ 'coc-pyright',
@@ -235,6 +235,8 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term go run .
+	elseif &filetype == 'rust'
+		:!cargo run
 	endif
 endfunc
 
@@ -294,7 +296,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 
 " Markdown
-" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
@@ -307,7 +308,6 @@ Plug 'tomtom/tcomment_vim'
 
 " Git
 Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
-Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'cohama/agit.vim'
 Plug 'kdheepak/lazygit.nvim'
@@ -344,6 +344,9 @@ Plug 'arzg/vim-swift'
 
 Plug 'laishulu/vim-macos-ime'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 
@@ -360,6 +363,7 @@ hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#afc5cb
 " === vim-airline
 " ===
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 
 " ===
@@ -408,19 +412,6 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 
 
 
-" ===
-" === vim-instant-markdown
-" ===
-" let g:instant_markdown_slow = 0
-" let g:instant_markdown_autostart = 0
-" let g:instant_markdown_mathjax = 1
-" let g:instant_markdown_mermaid = 1
-" let g:instant_markdown_autoscroll = 1
-" let g:instant_markdown_open_to_the_world = 1
-" let g:instant_markdown_allow_unsafe_content = 1
-" let g:instant_markdown_allow_external_content = 0
-
-
 
 " ===
 " === vim-table-mode
@@ -452,21 +443,6 @@ let g:bullets_enabled_file_types = [
 let g:vmt_cycle_list_item_markers = 1
 let g:vmt_fence_text = 'TOC'
 let g:vmt_fence_closing_text = '/TOC'
-
-
-
-" ===
-" === nvim-treesitter
-" ===
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = "all",     -- one of "all", "language", or a list of languages
-"   ignore_install={"haskell"},
-"   highlight = {
-"     enable = true             -- false will disable the whole extension
-"   },
-" }
-" EOF
 
 
 
@@ -596,14 +572,6 @@ nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
 
 " ===
-" === fzf-gitignore
-" ===
-" noremap <LEADER>gi :FzfGitignore<CR>
-
-
-
-
-" ===
 " === coc-gitignore
 " ===
 noremap <LEADER>gi :CocList gitignore<CR>
@@ -690,8 +658,14 @@ function! ReplaceChineseCharacter()
 	execute "%s/，/,/g"
 	execute "%s/。/./g"
 	execute "%s/：/:/g"
+	execute "%s/；/;/g"
 	execute "%s/“/\"/g"
 	execute "%s/”/\"/g"
 endfunction
 
 autocmd FileType markdown autocmd BufWritePre <buffer> silent! call ReplaceChineseCharacter()
+
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+augroup END
