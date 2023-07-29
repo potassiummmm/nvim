@@ -239,7 +239,7 @@ func! CompileRunGcc()
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run %
+		:term go run .
 	elseif &filetype == 'rust'
 		:!cargo run
 	endif
@@ -723,4 +723,3 @@ let g:copilot_filetypes = {
 	  \ 'cpp': v:false,
 	  \ 'python': v:true,
 	  \ }
-
