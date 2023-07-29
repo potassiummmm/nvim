@@ -1,3 +1,5 @@
+let $NVIM_COC_LOG_LEVEL='all'
+
 " === 
 " === Auto load for first time uses
 " ===
@@ -31,6 +33,7 @@ set smartcase
 set clipboard=unnamedplus
 set autochdir
 set hidden
+set mouse=
 
 exec "nohlsearch"
 
@@ -45,7 +48,6 @@ noremap S :w<CR>
 noremap tu :tabe<CR>
 noremap th :-tabnext<CR>
 noremap tl :+tabnext<CR>
-
 
 " Window management
 noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
@@ -81,6 +83,7 @@ noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " ESC remapped
 inoremap jk <ESC>l
+inoremap JK <ESC>l
 
 " Cursor movement in insert mode
 inoremap <C-a> <ESC>A
@@ -105,14 +108,14 @@ nnoremap > >>
 " coc.nvim extensions
 let g:coc_global_extensions = [
 	\ 'coc-snippets',  
+	\ 'coc-explorer',  
 	\ 'coc-sh',
 	\ 'coc-diagnostic',  
-	\ 'coc-gitignore',  
 	\ 'coc-syntax',  
 	\ 'coc-translator',
+	\ 'coc-rust-analyzer',
 	\ 'coc-pyright',
 	\ 'coc-vimlsp', 
-	\ 'coc-explorer',
     \ 'coc-tslint-plugin',
 	\ 'coc-tsserver',
 	\ 'coc-json',
@@ -170,7 +173,7 @@ let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
@@ -201,7 +204,9 @@ map <F10> :call SynGroup()<CR>
 " Compile function
 noremap r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-	exec "w"
+	if &bt != 'nofile'
+		exec "w"
+	endif
 	if &filetype == 'c'
 		set splitbelow
 		exec "!gcc % -Wall -o %<"
@@ -234,7 +239,9 @@ func! CompileRunGcc()
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run .
+		:term go run %
+	elseif &filetype == 'rust'
+		:!cargo run
 	endif
 endfunc
 
@@ -268,6 +275,8 @@ Plug 'luochen1990/rainbow'
 Plug 'ryanoasis/vim-devicons'
 Plug 'wincent/terminus'
 Plug 'ajmwagar/vim-deus'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'theniceboy/eleline.vim'
 " Plug 'ojroques/vim-scrollstatus'
@@ -283,18 +292,12 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'gcmt/wildfire.vim' 
 
-
-" Debugger
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-cpp --enable-python --enable-go'}
-
-
 " File Finder
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 
 " Markdown
-" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
@@ -307,7 +310,6 @@ Plug 'tomtom/tcomment_vim'
 
 " Git
 Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
-Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'cohama/agit.vim'
 Plug 'kdheepak/lazygit.nvim'
@@ -333,16 +335,25 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
 
+" Nvim tree
+Plug 'nvim-tree/nvim-web-devicons' " optional
+Plug 'nvim-tree/nvim-tree.lua'
 
 " LeetCode
-Plug 'potassiummmm/coc-leetcode', {'do': 'yarn install --frozen-lockfile && yarn build'}
-
+" Plug 'potassiummmm/coc-leetcode', {'do': 'yarn install --frozen-lockfile && yarn build'}
+Plug '~/Desktop/Repo/coc-leetcode'
 
 " Swift
 Plug 'keith/swift.vim'
 Plug 'arzg/vim-swift'
 
 Plug 'laishulu/vim-macos-ime'
+
+" Rust
+Plug 'rust-lang/rust.vim'
+
+" Copilot
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -351,8 +362,12 @@ call plug#end()
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
-set background=light
-colorscheme solarized
+" set background=light
+" colorscheme solarized
+set background=dark
+" colorscheme gruvbox
+" colorscheme dracula
+colorscheme deus
 hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#afc5cb
 
 
@@ -360,6 +375,7 @@ hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#afc5cb
 " === vim-airline
 " ===
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 
 " ===
@@ -408,19 +424,6 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 
 
 
-" ===
-" === vim-instant-markdown
-" ===
-" let g:instant_markdown_slow = 0
-" let g:instant_markdown_autostart = 0
-" let g:instant_markdown_mathjax = 1
-" let g:instant_markdown_mermaid = 1
-" let g:instant_markdown_autoscroll = 1
-" let g:instant_markdown_open_to_the_world = 1
-" let g:instant_markdown_allow_unsafe_content = 1
-" let g:instant_markdown_allow_external_content = 0
-
-
 
 " ===
 " === vim-table-mode
@@ -452,21 +455,6 @@ let g:bullets_enabled_file_types = [
 let g:vmt_cycle_list_item_markers = 1
 let g:vmt_fence_text = 'TOC'
 let g:vmt_fence_closing_text = '/TOC'
-
-
-
-" ===
-" === nvim-treesitter
-" ===
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = "all",     -- one of "all", "language", or a list of languages
-"   ignore_install={"haskell"},
-"   highlight = {
-"     enable = true             -- false will disable the whole extension
-"   },
-" }
-" EOF
 
 
 
@@ -560,11 +548,11 @@ let g:go_doc_keywordprg_enabled = 0
 " ===
 augroup autoformat_settings
   " autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,arduino AutoFormatBuffer clang-format
   " autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   " autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css,sass,javascript,scss,less,json AutoFormatBuffer js-beautify
   " autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
@@ -592,14 +580,6 @@ nnoremap <LEADER>gf :GitGutterFold<CR>
 " nnoremap H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
-
-
-
-" ===
-" === fzf-gitignore
-" ===
-" noremap <LEADER>gi :FzfGitignore<CR>
-
 
 
 
@@ -690,8 +670,57 @@ function! ReplaceChineseCharacter()
 	execute "%s/，/,/g"
 	execute "%s/。/./g"
 	execute "%s/：/:/g"
+	execute "%s/；/;/g"
 	execute "%s/“/\"/g"
 	execute "%s/”/\"/g"
 endfunction
 
-autocmd FileType markdown autocmd BufWritePre <buffer> silent! call ReplaceChineseCharacter()
+autocmd FileType markdown,cpp autocmd BufWritePre <buffer> silent! call ReplaceChineseCharacter()
+
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+augroup END
+
+
+" ===
+" === bullets.vim
+" ===
+
+" indent and unindent
+" inoremap <C-l> <C-t>
+" inoremap <C-h> <C-d>
+
+
+" ===
+" === markdown-preview.nvim
+" ===
+
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 1
+    \ }
+
+
+noremap <LEADER>t :GenTocGFM<CR>
+
+
+" Rust
+let g:rustfmt_autosave = 1
+
+" Copilot
+let g:copilot_filetypes = {
+	  \ '*': v:false,
+	  \ 'cpp': v:false,
+	  \ 'python': v:true,
+	  \ }
+

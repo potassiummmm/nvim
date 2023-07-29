@@ -38,9 +38,9 @@
     "diagnostic.warningSign": "\uf071",
     "diagnostic.infoSign": "\uf129",
     "diagnostic.hintSign": "\uf864",
-    "clangd.path": "/usr/local/opt/llvm/bin/clangd",
+    "clangd.path": "/opt/homebrew/opt/llvm/bin/clangd",
     "clangd.disableCompletion": false,
-    "clangd.disableSnippetCompletion": true,
+    "clangd.disableSnippetCompletion": false,
     "languageserver": {
         "golang": {
             "command": "/Users/algiz/Documents/code/GoPath/bin/gopls",
@@ -52,7 +52,8 @@
     "leetcode.language": "cpp",
     "leetcode.filePath": "/Users/algiz/Desktop/Projects/LeetCodeProblems/",
     "leetcode.enabled": true,
-    "python.pythonPath": "/usr/local/bin/python3.9",
+    "leetcode.trace.server": "verbose",
+    "python.pythonPath": "/Users/algiz/Documents/Config/nvim_conda_setup",
     "python.analysis.typeCheckingMode": "off",
     "yank.enableCompletion": false,
     "explorer.icon.source": "vim-devicons",
@@ -60,7 +61,10 @@
     "explorer.icon.enableNerdfont": true,
     "explorer.keyMappings.global": {
         "J": ["normal:5j"],
-        "K": ["normal:5k"]
+        "K": ["normal:5k"],
+        "l": ["wait", "expandable?", "expand", "open", "resize:30*30"]
     },
-    "explorer.floating.position": "left-center"
+    "explorer.floating.position": "left-center",
+    "explorer.width": 30,
+    "snippets.ultisnips.pythonPrompt": false
 }
